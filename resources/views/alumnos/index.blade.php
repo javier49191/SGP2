@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('loader')
-{{-- @include('partials.loader') --}}
+@include('partials.loader')
 @endsection
 
 @section('content')
