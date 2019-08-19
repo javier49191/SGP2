@@ -3,7 +3,7 @@
 // Wait for window load
 $(window).on('load', function() {
     // Animate loader off screen
-    $('.se-pre-con').fadeOut(2000);
+    $('.se-pre-con').fadeOut(1000);
 });
 </script>
 {{-- Preloader --}}
