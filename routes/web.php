@@ -22,7 +22,7 @@ Route::resource('padrinos', 'PadrinosController');
 Route::resource('aportes', 'AportesController');
 Route::resource('estados', 'EstadosFinancierosController');
 Route::resource('usuarios', 'UsersController');
-Route::resource('vinculaciones', 'vinculacionesController');
+Route::resource('vinculaciones', 'VinculacionesController');
 
 // Datatable
 Route::get('alumnosDatatable', 'AlumnosController@datatable');
