@@ -50,6 +50,7 @@
 			},
 			processing: true,
 			serverSide: true,
+			deferRender: true,
 			ajax: '{{ url('padrinosDatatable') }}',
 			columns: [
 			{data: 'nombre', name: 'nombre'},

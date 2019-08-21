@@ -100,6 +100,15 @@ input[type="checkbox"].switch_1:checked:after{
 	margin-right: auto;
 	border-radius: 50%;
 }
+#pagos_processing,
+#padrinos_processing,
+#estados_processing,
+#activas_processing,
+#inactivas_processing,
+#alumnos_processing{
+	background: #292b2c;
+	color: white;
+}
 /* Switch 1 Specific Style End */
 
 /*!

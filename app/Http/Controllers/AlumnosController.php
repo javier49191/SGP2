@@ -26,11 +26,9 @@ class AlumnosController extends Controller
      */
     public function index()
     {
-
-        $alumnos = Alumno::all();
         $vinculacion = Vinculacione::whereNull('deleted_at')->get();
 
-        return view('alumnos.index', compact('alumnos', 'vinculacion'));
+        return view('alumnos.index', compact('vinculacion'));
     }
 
     /**
@@ -163,7 +161,7 @@ class AlumnosController extends Controller
     }
 
     public function datatable(){
-        $alumnos = Alumno::all();
+        $alumnos = Alumno::all('nombre', 'apellido', 'alias', 'dni', 'id');
         
         return Datatables::of($alumnos)
         ->addColumn('nombre', function(Alumno $alumno){

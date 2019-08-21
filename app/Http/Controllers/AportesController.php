@@ -24,7 +24,7 @@ class AportesController extends Controller
      */
     public function index()
     {
-        $pagos = Pago::all();
+        $pagos = Pago::all('detalle_pago_id');
 
         // $agrupados = \DB::select (\DB::raw("SELECT YEAR(fecha_pago), SUM(monto_pago) as suma FROM pagos GROUP BY YEAR(fecha_pago)"));
 
@@ -139,11 +139,14 @@ class AportesController extends Controller
     }
 
     public function datatable(){
-        $pagos = Pago::all();
+        $pagos = Pago::all('monto_pago', 'fecha_pago', 'created_at', 'user_id', 'padrino_id');
 
         return Datatables::of($pagos)
         ->addColumn('padrino', function(Pago $pago){
             return $pago->padrino->nombre;
+        })
+        ->addColumn('monto_pago', function(Pago $pago){
+            return $pago->monto_pago;
         })
         ->addColumn('fecha_pago', function(Pago $pago){
             return $pago->fecha_pago->format('d-m-Y');
@@ -154,9 +157,9 @@ class AportesController extends Controller
         ->addColumn('usuario', function(Pago $pago){
             return $pago->user->name;
         })
-        ->addColumn('tipoPago', function(Pago $pago){
-            return $pago->detallePago->tipoPago->descripcion;
-        })
+        // ->addColumn('tipoPago', function(Pago $pago){
+        //     return $pago->detallePago->tipoPago->descripcion;
+        // })
         ->toJson();
     }
 }

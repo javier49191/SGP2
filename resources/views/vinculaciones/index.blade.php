@@ -213,6 +213,7 @@
             },
             processing: true,
             serverSide: true,
+            deferRender: true,
             ajax: '{{ url('vinculacionesDatatable') }}',
             columns: [
             {data: 'alumno', name: 'alumno'},

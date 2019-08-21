@@ -25,8 +25,8 @@ class EstadosFinancierosController extends Controller
      */
     public function index()
     {
-        $padrinos = Padrino::all();
-        $estados = EstadosFinanciero::all();
+        $padrinos = Padrino::all('id');
+        $estados = EstadosFinanciero::all('id', 'nombre', 'cantidad_cuotas');
         return view('estados.index', compact('padrinos', 'estados'));
     }
 
@@ -97,7 +97,7 @@ class EstadosFinancierosController extends Controller
     }
 
     public function datatable(){
-        $padrinos = Padrino::all();
+        $padrinos = Padrino::all('id', 'nombre', 'apellido', 'alias');
         
         return Datatables::of($padrinos)
         ->addColumn('nombre', function(Padrino $padrino){
@@ -120,6 +120,7 @@ class EstadosFinancierosController extends Controller
         })
         ->addColumn('estado', function(Padrino $padrino){
             $estados = EstadosFinanciero::all();
+
             return '<span class="badge badge-pill '.claseEstado($estados, 'cantidad_cuotas',pendientes($padrino->pagos->count())).'">'.estadoFinanciero($estados, 'cantidad_cuotas', pendientes($padrino->pagos->count())).'</span>';
         })
         ->rawColumns(['nombre', 'estado', 'cuotas_pagas', 'cuotas_pendientes', 'monto_total'])

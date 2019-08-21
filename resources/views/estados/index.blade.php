@@ -65,6 +65,7 @@
 			},
 			processing: true,
 			serverSide: true,
+			deferRender: true,
 			ajax: '{{ url('estadosDatatable') }}',
 			columns: [
 			{data: 'nombre', name: 'nombre'},

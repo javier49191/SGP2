@@ -26,7 +26,7 @@
 							<th>Fecha de pago</th>
 							<th>Pago ingresado</th>
 							<th>Usuario</th>
-							<th>Tipo Pago</th>
+							{{-- <th>Tipo Pago</th> --}}
 						</thead>
 					</table>
 				</div>
@@ -79,6 +79,10 @@
 			},
 			processing: true,
 			serverSide: true,
+			deferRender: true,
+			oLanguage: {
+				"sProcessing": "Procesando..."
+			},
 			ajax: '{{ url('aportesDatatable') }}',
 			columns: [
 			{data: 'padrino', name: 'padrino'},
@@ -86,7 +90,7 @@
 			{data: 'fecha_pago', name: 'fecha_pago'},
 			{data: 'created_at', name: 'created_at'},
 			{data: 'usuario', name: 'usuario'},
-			{data: 'tipoPago', name: 'tipoPago'},
+			// {data: 'tipoPago', name: 'tipoPago'},
 			]
 		});
 	} );

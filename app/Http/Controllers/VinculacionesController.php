@@ -33,8 +33,8 @@ class VinculacionesController extends Controller
         
         $PadrinosVinculados = Vinculacione::distinct()->whereNull('deleted_at')->get(['padrino_id']);
         
-        $alumnos = Alumno::all();
-        $padrinos = Padrino::all();
+        $alumnos = Alumno::all('id');
+        $padrinos = Padrino::all('id');
 
         return view('vinculaciones.index', compact('vinculados', 'Novinculados', 'AlumnosVinculados', 'PadrinosVinculados', 'alumnos', 'padrinos'));
     }
