@@ -222,7 +222,7 @@ class PadrinosController extends Controller
     }
 
     public function datatable(){
-        $padrinos = Padrino::all();
+        $padrinos = Padrino::query();
         
         return Datatables::of($padrinos)
         ->addColumn('nombre', function(Padrino $padrino){

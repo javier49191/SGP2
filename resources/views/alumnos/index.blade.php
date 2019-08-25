@@ -50,6 +50,7 @@
 			},
 			processing: true,
 			serverSide: true,
+			deferRender: true,
 			ajax: '{{ url('alumnosDatatable') }}',
 			columns: [
 			{data: 'nombre', name: 'nombre'},

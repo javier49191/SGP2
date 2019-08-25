@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use DB;
 use App\Pago;
 use App\Padrino;
 use App\TiposPago;
 use App\DetallesPago;
 use Carbon\Carbon;
-use Yajra\DataTables\Datatables;
+use Yajra\DataTables\Facades\Datatables;
 
 class AportesController extends Controller
 {
@@ -24,7 +23,7 @@ class AportesController extends Controller
      */
     public function index()
     {
-        $pagos = Pago::all('detalle_pago_id');
+        $pagos = Pago::all();
 
         // $agrupados = \DB::select (\DB::raw("SELECT YEAR(fecha_pago), SUM(monto_pago) as suma FROM pagos GROUP BY YEAR(fecha_pago)"));
 
@@ -139,23 +138,26 @@ class AportesController extends Controller
     }
 
     public function datatable(){
-        $pagos = Pago::all('monto_pago', 'fecha_pago', 'created_at', 'user_id', 'padrino_id');
-
-        return Datatables::of($pagos)
-        ->addColumn('padrino', function(Pago $pago){
-            return $pago->padrino->nombre;
+        // $pagos = Pago::all('monto_pago', 'fecha_pago', 'created_at', 'user_id', 'padrino_id');
+        // $pagos = Pago::query();
+        
+        return Datatables::of(Pago::with('padrino', 'user', 'detallePago'))
+        ->editColumn('padrino_id', function(Pago $pago){
+            $nombre = padrinoNombre($pago);
+            return $nombre;
         })
-        ->addColumn('monto_pago', function(Pago $pago){
+        ->editColumn('monto_pago', function(Pago $pago){
             return $pago->monto_pago;
         })
-        ->addColumn('fecha_pago', function(Pago $pago){
+        ->editColumn('fecha_pago', function(Pago $pago){
             return $pago->fecha_pago->format('d-m-Y');
         })
-        ->addColumn('created_at', function(Pago $pago){
+        ->editColumn('created_at', function(Pago $pago){
             return $pago->created_at->format('d-m-Y');
         })
-        ->addColumn('usuario', function(Pago $pago){
-            return $pago->user->name;
+        ->addColumn('user_id', function(Pago $pago){
+            $name = usuarioNombre($pago);
+            return $name;
         })
         // ->addColumn('tipoPago', function(Pago $pago){
         //     return $pago->detallePago->tipoPago->descripcion;

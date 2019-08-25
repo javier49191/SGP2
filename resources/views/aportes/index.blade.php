@@ -26,8 +26,21 @@
 							<th>Fecha de pago</th>
 							<th>Pago ingresado</th>
 							<th>Usuario</th>
-							{{-- <th>Tipo Pago</th> --}}
+							<th>Tipo Pago</th>
 						</thead>
+						<tbody>
+							@forelse($pagos as $pago)
+							<tr>
+								<td>{{$pago->padrino->nombre}}</td>
+								<td>{{$pago->monto_pago}}</td>
+								<td>{{$pago->fecha_pago}}</td>
+								<td>{{$pago->created_at}}</td>
+								<td>{{$pago->user->name}}</td>
+								<td>{{$pago->detallePago->tipoPago->descripcion}}</td>
+							</tr>
+							@empty
+							@endforelse
+						</tbody>
 					</table>
 				</div>
 			</div>
@@ -78,20 +91,18 @@
 				"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
 			},
 			processing: true,
-			serverSide: true,
-			deferRender: true,
-			oLanguage: {
-				"sProcessing": "Procesando..."
-			},
-			ajax: '{{ url('aportesDatatable') }}',
-			columns: [
-			{data: 'padrino', name: 'padrino'},
-			{data: 'monto_pago', name: 'monto_pago'},
-			{data: 'fecha_pago', name: 'fecha_pago'},
-			{data: 'created_at', name: 'created_at'},
-			{data: 'usuario', name: 'usuario'},
+			// serverSide: true,
+			// deferRender: true,
+			// ajax:'{{ asset('aportesDatatable') }}',
+			// type: 'GET',
+			// columns: [
+			// {data: 'padrino_id', name: 'padrino_id'},
+			// {data: 'monto_pago', name: 'monto_pago'},
+			// {data: 'fecha_pago', name: 'fecha_pago'},
+			// {data: 'created_at', name: 'created_at'},
+			// {data: 'user_id', name: 'user_id'},
 			// {data: 'tipoPago', name: 'tipoPago'},
-			]
+			//]
 		});
 	} );
 </script>

@@ -97,7 +97,8 @@ class EstadosFinancierosController extends Controller
     }
 
     public function datatable(){
-        $padrinos = Padrino::all('id', 'nombre', 'apellido', 'alias');
+        // $padrinos = Padrino::all('id', 'nombre', 'apellido', 'alias');
+        $padrinos = Padrino::query('id', 'nombre', 'apellido', 'alias');
         
         return Datatables::of($padrinos)
         ->addColumn('nombre', function(Padrino $padrino){

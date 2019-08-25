@@ -164,16 +164,16 @@ class AlumnosController extends Controller
         $alumnos = Alumno::all('nombre', 'apellido', 'alias', 'dni', 'id');
         
         return Datatables::of($alumnos)
-        ->addColumn('nombre', function(Alumno $alumno){
+        ->editColumn('nombre', function(Alumno $alumno){
             return '<a href="'.route("alumnos.show", $alumno->id).'">'.$alumno->nombre.'</a>';
         })
-        ->addColumn('apellido', function(Alumno $alumno){
+        ->editColumn('apellido', function(Alumno $alumno){
             return $alumno->apellido;
         })
-        ->addColumn('alias', function(Alumno $alumno){
+        ->editColumn('alias', function(Alumno $alumno){
             return $alumno->alias;
         })
-        ->addColumn('dni', function(Alumno $alumno){
+        ->editColumn('dni', function(Alumno $alumno){
             return $alumno->dni;
         })
         ->addColumn('vinculado', function(Alumno $alumno){

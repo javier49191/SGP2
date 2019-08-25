@@ -76,3 +76,10 @@ function tipoPago($val1, $val2){
 	return $count;
 	
 }
+
+function padrinoNombre($val1){
+	return $val1->padrino->nombre;
+}
+function usuarioNombre($val1){
+	return $val1->user->name;
+}
