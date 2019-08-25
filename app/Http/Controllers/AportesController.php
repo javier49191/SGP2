@@ -7,8 +7,9 @@ use App\Pago;
 use App\Padrino;
 use App\TiposPago;
 use App\DetallesPago;
+use App\AportesLaravel;
 use Carbon\Carbon;
-use Yajra\DataTables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 
 class AportesController extends Controller
 {
@@ -140,28 +141,28 @@ class AportesController extends Controller
     public function datatable(){
         // $pagos = Pago::all('monto_pago', 'fecha_pago', 'created_at', 'user_id', 'padrino_id');
         // $pagos = Pago::query();
+        // Pago::with('padrino', 'user', 'detallePago')
+        $aportes = AportesLaravel::query();
         
-        return Datatables::of(Pago::with('padrino', 'user', 'detallePago'))
-        ->editColumn('padrino_id', function(Pago $pago){
-            $nombre = padrinoNombre($pago);
-            return $nombre;
+        return Datatables::of($aportes)
+        ->editColumn('nombre', function(AportesLaravel $aporte){
+            return $aporte->nombre;
         })
-        ->editColumn('monto_pago', function(Pago $pago){
-            return $pago->monto_pago;
+        ->editColumn('monto_pago', function(AportesLaravel $aporte){
+            return $aporte->monto_pago;
         })
-        ->editColumn('fecha_pago', function(Pago $pago){
-            return $pago->fecha_pago->format('d-m-Y');
+        ->editColumn('fecha_pago', function(AportesLaravel $aporte){
+            return $aporte->fecha_pago->format('d-m-Y');
         })
-        ->editColumn('created_at', function(Pago $pago){
-            return $pago->created_at->format('d-m-Y');
+        ->editColumn('created_at', function(AportesLaravel $aporte){
+            return $aporte->created_at->format('d-m-Y');
         })
-        ->addColumn('user_id', function(Pago $pago){
-            $name = usuarioNombre($pago);
-            return $name;
+        ->editColumn('name', function(AportesLaravel $aporte){
+            return $aporte->name;
         })
-        // ->addColumn('tipoPago', function(Pago $pago){
-        //     return $pago->detallePago->tipoPago->descripcion;
-        // })
+        ->editColumn('descripcion', function(AportesLaravel $aporte){
+            return $aporte->descripcion;
+        })
         ->toJson();
     }
 }
