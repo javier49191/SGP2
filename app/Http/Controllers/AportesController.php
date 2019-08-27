@@ -24,7 +24,7 @@ class AportesController extends Controller
      */
     public function index()
     {
-        $pagos = Pago::all();
+        $pagos = Pago::all('id', 'detalle_pago_id');
 
         // $agrupados = \DB::select (\DB::raw("SELECT YEAR(fecha_pago), SUM(monto_pago) as suma FROM pagos GROUP BY YEAR(fecha_pago)"));
 

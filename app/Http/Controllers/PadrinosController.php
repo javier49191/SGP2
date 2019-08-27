@@ -225,19 +225,19 @@ class PadrinosController extends Controller
         $padrinos = Padrino::query();
         
         return Datatables::of($padrinos)
-        ->addColumn('nombre', function(Padrino $padrino){
+        ->editColumn('nombre', function(Padrino $padrino){
             return '<a href="'.route("padrinos.show", $padrino->id).'">'.$padrino->nombre.'</a>';
         })
-        ->addColumn('apellido', function(Padrino $padrino){
+        ->editColumn('apellido', function(Padrino $padrino){
             return $padrino->apellido;
         })
-        ->addColumn('alias', function(Padrino $padrino){
+        ->editColumn('alias', function(Padrino $padrino){
             return $padrino->alias;
         })
-        ->addColumn('email', function(Padrino $padrino){
+        ->editColumn('email', function(Padrino $padrino){
             return $padrino->email;
         })
-        ->addColumn('vinculado', function(Padrino $padrino){
+        ->editColumn('vinculado', function(Padrino $padrino){
             $vinculacion = Vinculacione::whereNull('deleted_at')->get();
 
             if (vinculado($vinculacion,'padrino_id', $padrino->id)){ 

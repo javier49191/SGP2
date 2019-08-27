@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\EstadosFinanciero;
+use App\EstadosLaravel;
 use App\Padrino;
-use Yajra\DataTables\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 
 class EstadosFinancierosController extends Controller
 {
@@ -98,33 +99,35 @@ class EstadosFinancierosController extends Controller
 
     public function datatable(){
         // $padrinos = Padrino::all('id', 'nombre', 'apellido', 'alias');
-        $padrinos = Padrino::query('id', 'nombre', 'apellido', 'alias');
+        // $padrinos = Padrino::query('id', 'nombre', 'apellido', 'alias');
+        $estados = EstadosLaravel::query();
         
-        return Datatables::of($padrinos)
-        ->addColumn('nombre', function(Padrino $padrino){
-            return '<a href="'.route("padrinos.show", $padrino->id).'">'.$padrino->nombre.'</a>';
+        return Datatables::of($estados)
+        ->addColumn('nombre', function(EstadosLaravel $estado){
+            return '<a href="'.route("padrinos.show", $estado->padrino_id).'">'.$estado->nombre.'</a>';
         })
-        ->addColumn('apellido', function(Padrino $padrino){
-            return $padrino->apellido;
+        ->addColumn('apellido', function(EstadosLaravel $estado){
+            return $estado->apellido;
         })
-        ->addColumn('alias', function(Padrino $padrino){
-            return $padrino->alias;
+        ->addColumn('alias', function(EstadosLaravel $estado){
+            return $estado->alias;
         })
-        ->addColumn('cuotas_pagas', function(Padrino $padrino){
-            return '<div class="text-center">'.$padrino->pagos->count().'</div>';
+        ->editColumn('pagas', function(EstadosLaravel $estado){
+            return '<div class="text-center">'.$estado->pagas.'</div>';
         })
-        ->addColumn('cuotas_pendientes', function(Padrino $padrino){
-            return '<div class="text-center">'.pendientes($padrino->pagos->count()).'</div>';
+        ->editColumn('pendientes', function(EstadosLaravel $estado){
+            return '<div class="text-center">'.$estado->pendientes.'</div>';
         })
-        ->addColumn('monto_total', function(Padrino $padrino){
-            return '<div class="text-center">'.$padrino->pagos->pluck('monto_pago')->sum().'</div>';
+        ->editColumn('monto_total', function(EstadosLaravel $estado){
+            return '<div class="text-center">'.$estado->monto_total.'</div>';
         })
-        ->addColumn('estado', function(Padrino $padrino){
-            $estados = EstadosFinanciero::all();
+        ->addColumn('estado', function(EstadosLaravel $estado){
+            $estados2 = EstadosFinanciero::all();
 
-            return '<span class="badge badge-pill '.claseEstado($estados, 'cantidad_cuotas',pendientes($padrino->pagos->count())).'">'.estadoFinanciero($estados, 'cantidad_cuotas', pendientes($padrino->pagos->count())).'</span>';
+            // return '<span class="badge badge-pill '.claseEstado($estados2, 'cantidad_cuotas',pendientes($estado->pagas)).'">'.estadoFinanciero($estados2, 'cantidad_cuotas', pendientes($estado->pendientes)).'</span>';
+            return '<span class="badge badge-pill '.claseEstado($estados2, 'cantidad_cuotas',pendientes($estado->pagas)).'">'.estadoFinanciero($estados2, 'cantidad_cuotas', pendientes($estado->pagas)).'</span>';
         })
-        ->rawColumns(['nombre', 'estado', 'cuotas_pagas', 'cuotas_pendientes', 'monto_total'])
+        ->rawColumns(['nombre', 'pagas', 'estado','pendientes', 'monto_total'])
         ->toJson();
     }
 }

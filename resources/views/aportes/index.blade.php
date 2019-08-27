@@ -94,7 +94,6 @@
 			serverSide: true,
 			deferRender: true,
 			ajax:'{{ asset('aportesDatatable') }}',
-			type: 'GET',
 			columns: [
 			{data: 'nombre', name: 'nombre'},
 			{data: 'monto_pago', name: 'monto_pago'},

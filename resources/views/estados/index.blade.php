@@ -71,8 +71,8 @@
 			{data: 'nombre', name: 'nombre'},
 			{data: 'apellido', name: 'apellido'},
 			{data: 'alias', name: 'alias'},
-			{data: 'cuotas_pagas', name: 'cuotas_pagas'},
-			{data: 'cuotas_pendientes', name: 'cuotas_pendientes'},
+			{data: 'pagas', name: 'pagas'},
+			{data: 'pendientes', name: 'pendientes'},
 			{data: 'monto_total', name: 'monto_total'},
 			{data: 'estado', name: 'estado'},
 			]
