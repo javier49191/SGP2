@@ -144,16 +144,16 @@ class VinculacionesController extends Controller
         $vinculados = Vinculacione::whereNull('deleted_at')->get();
         
         return Datatables::of($vinculados)
-        ->addColumn('alumno', function(Vinculacione $vinculado){
+        ->editColumn('alumno', function(Vinculacione $vinculado){
             return '<a href="'.route("alumnos.show", $vinculado->alumno->id).'">'.$vinculado->alumno->nombre.'</a>';
         })
-        ->addColumn('padrino', function(Vinculacione $vinculado){
+        ->editColumn('padrino', function(Vinculacione $vinculado){
             return '<a href="'.route("padrinos.show", $vinculado->padrino->id).'">'.$vinculado->padrino->nombre.'</a>';
         })
-        ->addColumn('fecha_vinculacion', function(Vinculacione $vinculado){
+        ->editColumn('fecha_vinculacion', function(Vinculacione $vinculado){
             return '<div class="text-center">'.$vinculado->created_at->format('d-m-Y').'<span> ('.$vinculado->created_at->diffForHumans().')</span>'.'</div>';
         })
-        ->addColumn('observaciones', function(Vinculacione $vinculado){
+        ->editColumn('observaciones', function(Vinculacione $vinculado){
             return '<div class="text-center">'.$vinculado->observaciones.'</div>';
         })
         ->rawColumns(['alumno', 'padrino', 'fecha_vinculacion', 'observaciones'])

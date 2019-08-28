@@ -176,7 +176,7 @@ class AlumnosController extends Controller
         ->editColumn('dni', function(Alumno $alumno){
             return $alumno->dni;
         })
-        ->addColumn('vinculado', function(Alumno $alumno){
+        ->editColumn('vinculado', function(Alumno $alumno){
             $vinculacion = Vinculacione::whereNull('deleted_at')->get();
 
             if (vinculado($vinculacion,'alumno_id', $alumno->id)){ 
