@@ -1,2 +1,2 @@
 # SGP2
-### Segunda versipon del SGP
+### Segunda versón del SGP
