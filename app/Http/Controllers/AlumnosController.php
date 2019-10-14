@@ -145,7 +145,8 @@ class AlumnosController extends Controller
 
         $alumno->save();
 
-        return redirect()->route('alumnos.index')->with('info', 'Alumno actualizado!');
+        // return redirect()->route('alumnos.index')->with('info', 'Alumno actualizado!');
+        return redirect()->route('alumnos.show', $id)->with('info', 'Alumno actualizado!');
 
     }
 
