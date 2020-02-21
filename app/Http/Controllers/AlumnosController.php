@@ -10,6 +10,7 @@ use Yajra\DataTables\Datatables;
 
 class AlumnosController extends Controller
 {
+    const deleted = 'deleted_at';
     /**
      * Create a new controller instance.
      *
@@ -26,7 +27,7 @@ class AlumnosController extends Controller
      */
     public function index()
     {
-        $vinculacion = Vinculacione::whereNull('deleted_at')->get();
+        $vinculacion = Vinculacione::whereNull(deleted)->get();
 
         return view('alumnos.index', compact('vinculacion'));
     }
@@ -90,7 +91,7 @@ class AlumnosController extends Controller
     public function show($id)
     {
         $alumno = Alumno::findOrFail($id);
-        $vinculaciones = Vinculacione::where('alumno_id', $id)->whereNull('deleted_at')->get();
+        $vinculaciones = Vinculacione::where('alumno_id', $id)->whereNull(deleted)->get();
         return view('alumnos.show', compact('alumno', 'vinculaciones'));
     }
 
@@ -178,7 +179,7 @@ class AlumnosController extends Controller
             return $alumno->dni;
         })
         ->editColumn('vinculado', function(Alumno $alumno){
-            $vinculacion = Vinculacione::whereNull('deleted_at')->get();
+            $vinculacion = Vinculacione::whereNull(deleted)->get();
 
             if (vinculado($vinculacion,'alumno_id', $alumno->id)){ 
                 return '<div class="text-center"><span class="badge badge-pill badge-success">Si</span></div>';
